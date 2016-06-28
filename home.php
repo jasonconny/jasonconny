@@ -1,0 +1,62 @@
+<?php
+/**
+ * Template Name: Home
+ *
+ * A custom page template without sidebar.
+ *
+ * The "Template Name:" bit above allows this to be selectable
+ * from a dropdown menu on the edit page screen.
+ *
+ * @package WordPress
+ * @subpackage Boilerplate
+ * @since Boilerplate 1.0
+ */
+
+get_header(); ?>
+
+<?php if ( have_posts() ) while ( have_posts() ) : the_post(); ?>
+	
+	<ul class="gallery" id="9">
+		<?php 
+		global $post;
+		$tmp_post = $post;
+		$args = array('numberposts' => -1, 'category' => 9, 'orderby' => 'post_date');
+		$myposts = get_posts( $args );
+		foreach( $myposts as $post ) : setup_postdata($post); ?>
+			<li><a href="<?php the_permalink(); ?>" data-title="<?php the_title(); ?>" 
+
+				<?php $image_id = get_post_thumbnail_id();
+					$image_url = wp_get_attachment_image_src($image_id,'large', true);
+					echo "data-imgLarge=\"$image_url[0]\"";
+				?>
+
+				<?php $image_id = get_post_thumbnail_id();
+					$image_url = wp_get_attachment_image_src($image_id,'full', true);
+					echo "data-imgFull=\"$image_url[0]\"";
+				?>
+
+				<?php
+					//exclude the "_*" custom fields and "enclosure" when displaying in loop
+					if ( $keys = get_post_custom_keys() ) {
+						foreach ( (array) $keys as $key ) {
+						$keyt = trim($key);
+						if ( '_' == $keyt{0} || 'enclosure' == $keyt )
+						continue;
+						$values = array_map('trim', get_post_custom_values($key));
+						$value = implode($values,', ');
+						echo apply_filters('the_meta_key', "
+						data-$key=\"$value\" ", $key, $value);
+						}
+					}
+				?>
+
+				><?php the_post_thumbnail( 'medium' ); ?></a></li>
+		<?php endforeach; ?>
+		<?php $post = $tmp_post; ?>
+	</ul>
+	
+	<?php edit_post_link( __( 'Edit', 'boilerplate' ), '', '' ); ?>
+
+<?php endwhile; ?>
+
+<?php get_footer(); ?>
