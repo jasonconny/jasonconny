@@ -13,17 +13,37 @@ module.exports = function(grunt) {
                 }
             }
         },
-        copy: {
-            resources: {
-                expand: true,
-                cwd: './src/_res/',
-                src: ['**/*', '!**/sass/**'],
-                dest: './dist/_res/'
+        watch: {
+            css: {
+                files: '**/*.scss',
+                tasks: ['sass', 'copy:css']
             },
-            themeCss: {
+            js: {
+                files: '**/*.js',
+                tasks: ['copy:js']
+            },
+            html: {
+                files: '**/*.html',
+                tasks: ['copy:php']
+            }
+        },
+        copy: {
+            css: {
+                expand: true,
+                cwd: './src/_res/css/',
+                src: ['*.css*'],
+                dest: './dist/_res/css/'
+            },
+            js: {
+                expand: true,
+                cwd: './src/_res/js/',
+                src: ['*.js'],
+                dest: './dist/_res/js/'
+            },
+            theme: {
                 expand: true,
                 cwd: './src/',
-                src: ['*.css'],
+                src: ['*'],
                 dest: './dist/'
             },
             php: {
@@ -37,8 +57,10 @@ module.exports = function(grunt) {
         }
     });
 
+    grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-sass');
 
-    grunt.registerTask('default', ['sass', 'copy']);
+    grunt.registerTask('default', ['watch']);
+    grunt.registerTask('build', ['sass', 'copy:theme']);
 };
