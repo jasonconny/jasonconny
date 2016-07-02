@@ -20,6 +20,146 @@ $satansGray: #666;
 $darkGray: #222;
 $modalBkg: rgba(255, 255, 255, .95);
 $infoBkg: rgba(255, 255, 255, .5);
+$masterPrefix: -webkit- -ms- -moz- -o- null;
+$basicPrefix: -webkit- -moz- null;
+
+
+/* MIXINS */
+@mixin box-sizing($var) {
+  -webkit-box-sizing:$var;
+  -moz-box-sizing:$var;
+  box-sizing:$var;
+}
+
+@mixin transition($var...) {
+  -webkit-transition:$var;
+  transition:$var;
+}
+
+@mixin flex($grow:null,$shrink:null,$width:null) {
+  @if $grow != null {
+    @if $width != null {
+      -webkit-box-flex:$grow;
+      width:$width;
+      -moz-box-flex:$grow $shrink $width;
+      -ms-flex:$grow $shrink $width;
+      -webkit-flex:$grow $shrink $width;
+      flex:$grow $shrink $width;
+    } @else {
+      -webkit-box-flex:$grow;
+      -moz-box-flex:$grow $shrink;
+      -ms-flex:$grow $shrink;
+      -webkit-flex:$grow $shrink;
+      flex:$grow $shrink;
+    }
+  } @else {
+    display:-webkit-box;
+    display:-moz-box;
+    display:-ms-flexbox;
+    display:-webkit-flex;
+    display:flex;
+  }
+}
+
+@mixin flex-align-content($var) {
+  -webkit-align-content:$var;
+  -moz-align-content:$var;
+  align-content:$var;
+}
+
+@mixin flex-align-items($var) {
+  @if $var == "flex-end" {
+    -webkit-box-align:end;
+    -ms-flex-align:end;
+    @each $pfx in $basicPrefix {
+      #{$pfx}align-items:$var;
+    }
+  } @else if $var == "flex-start" {
+    -webkit-box-align:start;
+    -ms-flex-align:start;
+    @each $pfx in $basicPrefix {
+      #{$pfx}align-items:$var;
+    }
+  } @else {
+    -webkit-box-align:$var;
+    -ms-flex-align:$var;
+    @each $pfx in $basicPrefix {
+      #{$pfx}align-items:$var;
+    }
+  }
+}
+
+@mixin flex-align-self($var) {
+  -webkit-align-self:$var;
+  align-self:$var;
+}
+
+@mixin flex-direction($var) {
+  $orient: -webkit- -moz-;
+  $box: -webkit- -moz-;
+  $flex: -webkit- -ms- -moz- -o-;
+
+  @each $pfx in $box {
+    #{$pfx}box-direction:normal;
+  }
+  @if $var == "column" {
+    @each $pfx in $orient {
+      #{$pfx}box-orient:vertical;
+    }
+    @each $pfx in $masterPrefix {
+      #{$pfx}flex-direction:$var;
+    }
+  } @else if $var == "row" {
+    @each $pfx in $orient {
+      #{$pfx}box-orient:horizontal;
+    }
+    @each $pfx in $masterPrefix {
+      #{$pfx}flex-direction:$var;
+    }
+  }
+}
+
+@mixin flex-justify-content($var) {
+  @if $var == "flex-start" {
+    -webkit-box-pack:start;
+    -ms-flex-pack:start;
+    @each $pfx in $basicPrefix {
+      #{$pfx}justify-content:$var;
+    }
+  } @else if $var == "flex-end" {
+    -webkit-box-pack:end;
+    -ms-flex-pack:end;
+    @each $pfx in $basicPrefix {
+      #{$pfx}justify-content:$var;
+    }
+  } @else if $var == "space-between" {
+    -webkit-box-pack:justify;
+    -ms-flex-pack:justify;
+    @each $pfx in $basicPrefix {
+      #{$pfx}justify-content:$var;
+    }
+  } @else {
+    -webkit-box-pack:$var;
+    -ms-flex-pack:$var;
+    @each $pfx in $basicPrefix {
+      #{$pfx}justify-content:$var;
+    }
+  }
+}
+
+@mixin flex-order($var) {
+  -webkit-box-ordinal-group:$var;
+  -moz-box-ordinal-group:$var;
+  -ms-flex-order:$var;
+  -webkit-order:$var;
+  order:$var;
+}
+
+@mixin flex-wrap($var) {
+  -webkit-flex-wrap:$var;
+  -ms-flex-wrap:$var;
+  flex-wrap:$var;
+}
 
 
 body, 
@@ -276,35 +416,34 @@ footer {
 
 /* MODAL */
 #modal {
-  display: none;
   background-color: $modalBkg;
-  text-align: center;
   position: fixed;
   top: 0;
+  right: 0;
+  bottom: 0;
   left: 0;
   height: 100%;
   width: 100%;
-  z-index: 10;
+  opacity: 0;
+  z-index: -1;
+  @include transition(opacity 1s ease-in, z-index 0s 1s);
   &.display {
-    display: flex;
-    align-content: center;
+    opacity: 1;
+    z-index: 10;
+    @include transition(opacity 1s ease-out, z-index 0s);
+    @include flex();
+    @include flex-direction(column);
+    @include flex-justify-content(center);
+    @include flex-align-content(center);
   }
   .count {
     color: $mediumDarkGray;
-    position: absolute;
     text-align: center;
-    width: 10em;
-    bottom: 1em;
-    left: 50%;
-    margin-left: -5em;
+    padding: 2em 0;
   }
 }
 .modal-content {
-  display: inline-block;
-  text-align: left;
-  margin: 0 auto;
   padding: 6em 4em 0;
-  max-width: 66.66666666%;
   .info {
     margin: .5em 0 0;
   }
@@ -327,7 +466,7 @@ footer {
     border-top: 2em solid transparent;
     border-bottom: 2em solid transparent;
     text-indent: 100%;
-    whitespace: nowrap;
+    white-space: nowrap;
     overflow: hidden;
     height: 0;
     width: 0;
