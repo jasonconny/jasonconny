@@ -40,10 +40,16 @@ module.exports = function(grunt) {
                 src: ['*.js'],
                 dest: './dist/_res/js/'
             },
-            theme: {
+            resources: {
+                expand: true,
+                cwd: './src/_res/',
+                src: ['**/*', '!**/sass/**'],
+                dest: './dist/_res/'
+            },
+            themeCss: {
                 expand: true,
                 cwd: './src/',
-                src: ['*'],
+                src: ['*.css'],
                 dest: './dist/'
             },
             php: {
@@ -62,5 +68,5 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-sass');
 
     grunt.registerTask('default', ['watch']);
-    grunt.registerTask('build', ['sass', 'copy:theme']);
+    grunt.registerTask('build', ['sass', 'copy:themeCss', 'copy:php', 'copy:resources']);
 };
