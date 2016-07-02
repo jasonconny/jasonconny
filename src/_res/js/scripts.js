@@ -91,13 +91,13 @@ Portfolio = {
 		$(clickedEl).parent().addClass('current');
 		self.populateModal(clickedEl);
 		self.$_body.addClass('blur');
-		self.$_modal.fadeIn().addClass('display');
+		self.$_modal.addClass('display');
 	},
 
 	closeModal: function(e, clickedEl) {
 		$('.current').removeClass('current');
 		this.$_body.removeClass('blur');
-		this.$_modal.fadeOut().removeClass('display');
+		this.$_modal.removeClass('display');
 	},
 
 	showInfo: function(e, clickedEl) {
