@@ -34,6 +34,7 @@ Portfolio = {
 		this.$_thumbnailLinks = $('.gallery li a');
 		this.$_modal = $('#modal');
 		this.$_modalContent = $('.modal-content');
+		this.$_modalInfo = this.$_modalContent.find('.info');
 		this.$_modalTitle = this.$_modalContent.find('h2');
 		this.$_modalImg = this.$_modalContent.find('img');
 		this.$_modalMaterials = this.$_modalContent.find('.materials');
@@ -48,8 +49,8 @@ Portfolio = {
 		this.properties = {
 			windowHeight : this.$_window.height(),
 			windowWidth : this.$_window.width(),
-			modal : { 
-				title : null, 
+			modal : {
+				title : null,
 				imgSrc : null,
 				materials : null,
 				dimensions : null
@@ -58,12 +59,12 @@ Portfolio = {
 	},
 
 	populateModal: function(galleryItem) {
-		var self, galleryLength, galleryIndex;
+		var self, $currentGallery, galleryLength, galleryIndex;
 		self = this.properties.modal;
 		$currentGallery = $(galleryItem).parents('.gallery');
 		galleryLength = $currentGallery.children('li').length;
 		galleryIndex = $('.current').index() + 1;
-		data = galleryItem.dataset;	
+		data = galleryItem.dataset;
 
 		if (galleryIndex == 1) {
 			this.$_modalPrevious.hide();
@@ -76,12 +77,13 @@ Portfolio = {
 		} else {
 			this.$_modalNext.show();
 		}
-		
+
 		this.$_modalTitle.text(data.title);
 		this.$_modalImg.attr('src', data.imgfull);
 		this.$_modalMaterials.text(data.materials);
 		this.$_modalDimensions.text(data.dimensions);
 		this.$_modalYear.text(data.year);
+		this.$_modalInfo.width(this.$_modalImg.width());
 
 		this.$_modalCount.text(galleryIndex + ' of ' + galleryLength);
 	},
@@ -98,8 +100,10 @@ Portfolio = {
 		$('.current').removeClass('current');
 		this.$_body.removeClass('blur');
 		this.$_modal.removeClass('display');
+		this.$_modalInfo.width('auto');
 	},
 
+	// if browser width <= 540 show info instead of modal
 	showInfo: function(e, clickedEl) {
 		if ($(clickedEl).children('.info').length == 0) {
 			data = clickedEl.dataset;
