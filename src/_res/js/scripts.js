@@ -1,6 +1,14 @@
 var Portfolio = Portfolio || {};
 
 Portfolio = {
+    headerAssets: [
+        '19690227',
+        '19690228',
+        '19690301',
+        '19690302',
+        '19950709'
+    ],
+
 	init: function() {
 		// not sure I still need this or if Google even supports it anymore
 		// invoke Googles webfont lib to deal with FOUT
@@ -21,6 +29,7 @@ Portfolio = {
 			this.$_html.addClass('touch');
 		}
 
+		this.setHeader();
 		this.setProperties();
 		this.bindEvents();
 	},
@@ -30,6 +39,7 @@ Portfolio = {
 		this.$_html = $('html');
 		this.$_body = $('body');
 		this.$_htmlBody = $('html, body');
+        this.$_header = $('header');
 		this.$_galleries = $('.gallery');
 		this.$_thumbnailLinks = $('.gallery li a');
 		this.$_modal = $('#modal');
@@ -44,6 +54,15 @@ Portfolio = {
 		this.$_modalNext = this.$_modal.find('.next');
 		this.$_modalCount = this.$_modal.find('.count');
 	},
+
+    setHeader: function() {
+	    var self, headerAssets, index, backgroundImageProp;
+        self = this;
+	    headerAssets = this.headerAssets;
+        index = Math.floor(Math.random() * headerAssets.length);
+        backgroundImageProp = "url('/wp-content/themes/jasonconny/_res/img/" + headerAssets[index] + ".png')";
+        self.$_header.css('background-image', backgroundImageProp);
+    },
 
 	setProperties: function() {
 		this.properties = {
