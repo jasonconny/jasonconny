@@ -1,3 +1,5 @@
+// Grunt tasks require Node v6.2.*
+
 module.exports = function(grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
@@ -26,6 +28,9 @@ module.exports = function(grunt) {
                 files: '**/*.html',
                 tasks: ['copy:php']
             }
+        },
+        clean: {
+            build: ['./dist/*']
         },
         copy: {
             css: {
@@ -64,9 +69,10 @@ module.exports = function(grunt) {
     });
 
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-sass');
 
     grunt.registerTask('default', ['watch']);
-    grunt.registerTask('build', ['sass', 'copy:themeCss', 'copy:php', 'copy:resources']);
+    grunt.registerTask('build', ['sass', 'clean:build', 'copy:themeCss', 'copy:php', 'copy:resources']);
 };
