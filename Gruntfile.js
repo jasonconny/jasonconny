@@ -60,19 +60,47 @@ module.exports = function(grunt) {
             php: {
                 expand: true,
                 cwd: './src/',
-                src: ['*.html'],
+                src: ['*.html', '!header.html', '!footer.html'],
                 dest: './dist/',
                 ext: '.php',
                 extDot: 'last'
+            }
+        },
+        targethtml: {
+            dev: {
+                options: {
+                    curlyTags: {
+                        gaid: 'UA-2569982-9',
+                        version: '<%= pkg.version %>'
+                    }
+                },
+                files: {
+                    './dist/header.php' : './src/header.html',
+                    './dist/footer.php' : './src/footer.html'
+                }
+            },
+            prod: {
+                options: {
+                    curlyTags: {
+                        gaid: 'UA-2569982-1',
+                        version: '<%= pkg.version %>'
+                    }
+                },
+                files: {
+                    './dist/header.php' : './src/header.html',
+                    './dist/footer.php' : './src/footer.html'
+                }
             }
         }
     });
 
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-sass');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-copy');
-    grunt.loadNpmTasks('grunt-sass');
+    grunt.loadNpmTasks('grunt-targethtml');
 
     grunt.registerTask('default', ['watch']);
-    grunt.registerTask('build', ['sass', 'clean:build', 'copy:themeCss', 'copy:php', 'copy:resources']);
+    grunt.registerTask('build-dev', ['sass', 'clean:build', 'copy:themeCss', 'copy:php', 'copy:resources', 'targethtml:dev']);
+    grunt.registerTask('build-prod', ['sass', 'clean:build', 'copy:themeCss', 'copy:php', 'copy:resources', 'targethtml:prod']);
 };
