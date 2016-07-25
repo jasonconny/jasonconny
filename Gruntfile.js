@@ -70,6 +70,7 @@ module.exports = function(grunt) {
             dev: {
                 options: {
                     curlyTags: {
+                        domain: 'dev.jasonconny.com',
                         gaid: 'UA-2569982-9',
                         version: '<%= pkg.version %>'
                     }
@@ -82,6 +83,7 @@ module.exports = function(grunt) {
             prod: {
                 options: {
                     curlyTags: {
+                        domain: 'www.jasonconny.com',
                         gaid: 'UA-2569982-1',
                         version: '<%= pkg.version %>'
                     }

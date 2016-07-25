@@ -14,15 +14,15 @@
 		<meta charset="<?php bloginfo( 'charset' ); ?>" />
 		
 		<title><?php wp_title( '|', true, 'right' ); ?></title>
-		
+
+		<!--(if target dev || prod)><!-->
 		<meta property="og:title" content="<?php wp_title( '|', true, 'right' ); ?>" />
 		<meta property="og:type" content="website" />
 		<meta property="og:url" content="<?php echo get_page_link(); ?> " />
-		<meta property="og:image" content="http://www.jasonconny.com/wp-content/themes/jasonconny/_res/img/icon.png" />
+		<meta property="og:image" content="http://{{domain}}/wp-content/themes/jasonconny/_res/img/icon.png" />
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		
 		<link rel="profile" href="http://gmpg.org/xfn/11" />
-		<!--(if target dev || prod)><!-->
  		<link rel="stylesheet" href="/wp-content/themes/jasonconny/_res/css/styles.css?ver={{version}}" />
 		<!--<!(endif)-->
 		<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
