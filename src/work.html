@@ -18,12 +18,12 @@ get_header(); ?>
 
 	<h2><?php the_title(); ?></h2>
 	
-	<h3>Artitsts</h3>
-	<ul class="gallery" id="12">
+	<h3>Artists</h3>
+	<ul class="gallery" id="15">
 		<?php 
 		global $post;
 		$tmp_post = $post;
-		$args = array('numberposts' => -1, 'category' => 12, 'orderby' => 'post_date');
+		$args = array('numberposts' => -1, 'category' => 15, 'orderby' => 'post_date');
 		$myposts = get_posts( $args );
 		foreach( $myposts as $post ) : setup_postdata($post); ?>
 			<li><a href="<?php the_permalink(); ?>" data-title="<?php the_title(); ?>"
@@ -59,11 +59,11 @@ get_header(); ?>
 	</ul>
 	
 	<h3>Comedians</h3>
-	<ul class="gallery" id="11">
+	<ul class="gallery" id="16">
 		<?php 
 		global $post;
 		$tmp_post = $post;
-		$args = array('numberposts' => -1, 'category' => 11, 'orderby' => 'post_date');
+		$args = array('numberposts' => -1, 'category' => 16, 'orderby' => 'post_date');
 		$myposts = get_posts( $args );
 		foreach( $myposts as $post ) : setup_postdata($post); ?>
 			<li><a href="<?php the_permalink(); ?>" data-title="<?php the_title(); ?>"
@@ -99,46 +99,6 @@ get_header(); ?>
 	</ul>
 	
 	<h3>Monochromes</h3>
-	<ul class="gallery" id="8">
-		<?php 
-		global $post;
-		$tmp_post = $post;
-		$args = array('numberposts' => -1, 'category' => 8, 'orderby' => 'post_date');
-		$myposts = get_posts( $args );
-		foreach( $myposts as $post ) : setup_postdata($post); ?>
-			<li><a href="<?php the_permalink(); ?>" data-title="<?php the_title(); ?>"
-
-				<?php $image_id = get_post_thumbnail_id();
-					$image_url = wp_get_attachment_image_src($image_id,'large', true);
-					echo "data-imgLarge=\"$image_url[0]\"";
-				?>
-
-				<?php $image_id = get_post_thumbnail_id();
-					$image_url = wp_get_attachment_image_src($image_id,'full', true);
-					echo "data-imgFull=\"$image_url[0]\"";
-				?>
-
-				<?php
-					//exclude the "_*" custom fields and "enclosure" when displaying in loop
-					if ( $keys = get_post_custom_keys() ) {
-						foreach ( (array) $keys as $key ) {
-						$keyt = trim($key);
-						if ( '_' == $keyt{0} || 'enclosure' == $keyt )
-						continue;
-						$values = array_map('trim', get_post_custom_values($key));
-						$value = implode($values,', ');
-						echo apply_filters('the_meta_key', "
-						data-$key=\"$value\" ", $key, $value);
-						}
-					}
-				?>
-
-				><?php the_post_thumbnail( 'medium' ); ?></a></li>
-		<?php endforeach; ?>
-		<?php $post = $tmp_post; ?>
-	</ul>
-	
-	<h3>Sleeve Withdrawn After Plane Crash in Which Band Members Were Killed&hellip; Spooky</h3>
 	<ul class="gallery" id="7">
 		<?php 
 		global $post;
@@ -178,12 +138,52 @@ get_header(); ?>
 		<?php $post = $tmp_post; ?>
 	</ul>
 	
-	<h3>Other Figurative Work</h3>
-	<ul class="gallery" id="17">
+	<h3>Sleeve Withdrawn After Plane Crash in Which Band Members Were Killed&hellip; Spooky</h3>
+	<ul class="gallery" id="11">
 		<?php 
 		global $post;
 		$tmp_post = $post;
-		$args = array('numberposts' => -1, 'category' => '17,18', 'orderby' => 'post_date');
+		$args = array('numberposts' => -1, 'category' => 11, 'orderby' => 'post_date');
+		$myposts = get_posts( $args );
+		foreach( $myposts as $post ) : setup_postdata($post); ?>
+			<li><a href="<?php the_permalink(); ?>" data-title="<?php the_title(); ?>"
+
+				<?php $image_id = get_post_thumbnail_id();
+					$image_url = wp_get_attachment_image_src($image_id,'large', true);
+					echo "data-imgLarge=\"$image_url[0]\"";
+				?>
+
+				<?php $image_id = get_post_thumbnail_id();
+					$image_url = wp_get_attachment_image_src($image_id,'full', true);
+					echo "data-imgFull=\"$image_url[0]\"";
+				?>
+
+				<?php
+					//exclude the "_*" custom fields and "enclosure" when displaying in loop
+					if ( $keys = get_post_custom_keys() ) {
+						foreach ( (array) $keys as $key ) {
+						$keyt = trim($key);
+						if ( '_' == $keyt{0} || 'enclosure' == $keyt )
+						continue;
+						$values = array_map('trim', get_post_custom_values($key));
+						$value = implode($values,', ');
+						echo apply_filters('the_meta_key', "
+						data-$key=\"$value\" ", $key, $value);
+						}
+					}
+				?>
+
+				><?php the_post_thumbnail( 'medium' ); ?></a></li>
+		<?php endforeach; ?>
+		<?php $post = $tmp_post; ?>
+	</ul>
+	
+	<h3>Other Figurative Work</h3>
+	<ul class="gallery" id="4">
+		<?php 
+		global $post;
+		$tmp_post = $post;
+		$args = array('numberposts' => -1, 'category' => '4,8', 'orderby' => 'post_date');
 		$myposts = get_posts( $args );
 		foreach( $myposts as $post ) : setup_postdata($post); ?>
 			<li><a href="<?php the_permalink(); ?>" data-title="<?php the_title(); ?>"
@@ -219,11 +219,11 @@ get_header(); ?>
 	</ul>
 	
 	<h3>Sound</h3>
-	<ul class="gallery" id="10">
+	<ul class="gallery" id="12">
 		<?php 
 		global $post;
 		$tmp_post = $post;
-		$args = array('numberposts' => -1, 'category' => 10, 'orderby' => 'post_date');
+		$args = array('numberposts' => -1, 'category' => 12, 'orderby' => 'post_date');
 		$myposts = get_posts( $args );
 		foreach( $myposts as $post ) : setup_postdata($post); ?>
 			<li><a href="<?php the_permalink(); ?>" data-title="<?php the_title(); ?>"
@@ -309,11 +309,11 @@ get_header(); ?>
 	</ul>
 	
 	<h3>Miscellany</h3>
-	<ul class="gallery" id="14">
+	<ul class="gallery" id="6">
 		<?php 
 		global $post;
 		$tmp_post = $post;
-		$args = array('numberposts' => -1, 'category' => 14, 'orderby' => 'post_date');
+		$args = array('numberposts' => -1, 'category' => 6, 'orderby' => 'post_date');
 		$myposts = get_posts( $args );
 		foreach( $myposts as $post ) : setup_postdata($post); ?>
 			<li><a href="<?php the_permalink(); ?>" data-title="<?php the_title(); ?>"

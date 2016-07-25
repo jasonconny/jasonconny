@@ -20,7 +20,7 @@ get_header(); ?>
 		<?php 
 		global $post;
 		$tmp_post = $post;
-		$args = array('numberposts' => -1, 'category' => 9, 'orderby' => 'post_date');
+		$args = array('numberposts' => -1, 'category' => 10, 'orderby' => 'post_date');
 		$myposts = get_posts( $args );
 		foreach( $myposts as $post ) : setup_postdata($post); ?>
 			<li><a href="<?php the_permalink(); ?>" data-title="<?php the_title(); ?>" 
