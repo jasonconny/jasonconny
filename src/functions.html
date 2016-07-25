@@ -8,4 +8,9 @@ function remove_width_attribute( $html ) {
    return $html;
 }
 
+function register_footer_menu() {
+  register_nav_menu('footer',__( 'Footer Navigation' ));
+}
+add_action( 'init', 'register_footer_menu' );
+
 ?>
