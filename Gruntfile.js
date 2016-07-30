@@ -15,6 +15,17 @@ module.exports = function(grunt) {
                 }
             }
         },
+        uglify: {
+            options: {
+                mangle: true,
+                compress: true
+            },
+            my_target: {
+                files: {
+                    './dist/_res/js/scripts.min.js' : ['./src/_res/js/scripts.js']
+                }
+            }
+        },
         watch: {
             css: {
                 files: '**/*.scss',
@@ -45,12 +56,6 @@ module.exports = function(grunt) {
                 src: ['*.js'],
                 dest: './dist/_res/js/'
             },
-            resources: {
-                expand: true,
-                cwd: './src/_res/',
-                src: ['**/*', '!**/sass/**'],
-                dest: './dist/_res/'
-            },
             themeCss: {
                 expand: true,
                 cwd: './src/',
@@ -64,6 +69,18 @@ module.exports = function(grunt) {
                 dest: './dist/',
                 ext: '.php',
                 extDot: 'last'
+            },
+            devResources: {
+                expand: true,
+                cwd: './src/_res/',
+                src: ['**/*', '!**/sass/**'],
+                dest: './dist/_res/'
+            },
+            prodResources: {
+                expand: true,
+                cwd: './src/_res/',
+                src: ['**/*', '!**/sass/**', '!**/js/scripts.js'],
+                dest: './dist/_res/'
             }
         },
         targethtml: {
@@ -100,9 +117,10 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-sass');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-targethtml');
 
     grunt.registerTask('default', ['watch']);
-    grunt.registerTask('build-dev', ['sass', 'clean:build', 'copy:themeCss', 'copy:php', 'copy:resources', 'targethtml:dev']);
-    grunt.registerTask('build-prod', ['sass', 'clean:build', 'copy:themeCss', 'copy:php', 'copy:resources', 'targethtml:prod']);
+    grunt.registerTask('build-dev', ['sass', 'clean:build', 'copy:themeCss', 'copy:php', 'copy:devResources', 'targethtml:dev']);
+    grunt.registerTask('build-prod', ['sass', 'clean:build', 'copy:themeCss', 'copy:php', 'copy:prodResources', 'uglify', 'targethtml:prod']);
 };
