@@ -506,17 +506,19 @@ form {
 }
 label { 
   display: block;
-  margin: 1.33333333em 0 .13333333em 0;
-  font-size: 1.25em;
+  margin: 1.33333333em 0 .3333333em 0;
+  font-size: 1.2em;
   text-transform: uppercase;
   color: $mediumDarkGray;
 }
 input, 
 textarea { 
   display: block;
+  font-size: 1.2em;
   margin: 0 0 1em 0;
+  padding: .5em .25em;
 }
-input#submit { 
+input[type=submit] {
   border: 2px solid $mediumDarkGray;
   text-transform: uppercase;
   cursor: pointer;
