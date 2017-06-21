@@ -498,6 +498,36 @@ footer {
   }
 }
 
+/* ABOUT PAGE */
+.page-id-27 {
+  #content {
+    background: transparent url(/wp-content/uploads/2011/01/andy_elvis_bob-1.jpg) center no-repeat;
+    background-size: cover;
+    color: $white;
+    margin: 5em 0 0;
+    min-height: calc(100% - 25em);
+    padding: 8.5em 2em 5.5em;
+    article {
+      opacity: .8;
+    }
+    h1 {
+      &.entry-title {
+        color: $white;
+        font-size: 6em;
+        text-shadow: 0 0 1px $satansGray;
+      }
+    }
+    p {
+      font-size: 4em;
+      font-weight: bold;
+      margin: 0;
+      text-shadow: 0 0 1px $satansGray;
+      + p {
+        margin: 1em 0 0;
+      }
+    }
+  }
+}
 
 /* FORMS */
 form { 
