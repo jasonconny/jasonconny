@@ -235,7 +235,7 @@ a {
     text-decoration: none;
     outline: none;
   }
-  a:hover, a:active {
+  &:hover, &:active {
     color: $mediumDarkGray;
     outline: none;
   }
@@ -376,6 +376,15 @@ header {
             margin: 0 0 .25em;
           }
         }
+      }
+    }
+  }
+  .plain-list {
+    li {
+      font-size: 1.25em;
+      margin: 0 0 1em;
+      &:last-child {
+        margin-bottom: 0;
       }
     }
   }
